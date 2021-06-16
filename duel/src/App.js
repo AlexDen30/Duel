@@ -1,4 +1,4 @@
-import { grey } from '@material-ui/core/colors';
+import { grey, red, green } from '@material-ui/core/colors';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import Game from './components/Game';
@@ -9,8 +9,11 @@ import style from './App.module.css';
 const theme = createMuiTheme({  
   palette: {
     primary: {
-      main: grey[900],
-    }
+      main: green[400],
+    },
+    secondary: {
+      main: red[400],
+    },
   }
 })
 

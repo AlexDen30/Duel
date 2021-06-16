@@ -42,7 +42,12 @@ const InfoPanel = (props) => {
             <Paper className={classes.paper}>Your points:{12/5}</Paper>
             </Grid>
             <Grid item >
-                <Button variant="contained" color="primary" size="large" className={classes.button}>
+                <Button variant="contained" color='primary' size="large" className={classes.button}>
+                    Start
+                </Button>
+            </Grid>
+            <Grid item >
+                <Button variant="contained" color="secondary" size="large" className={classes.button}>
                     Concide
                 </Button>
             </Grid>
