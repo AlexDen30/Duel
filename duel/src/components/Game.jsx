@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Card from './Card';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     
@@ -25,6 +26,17 @@ const useStyles = makeStyles((theme) => ({
 const Game = (props) => {
 
     const classes = useStyles();
+    
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     
     const aiC = props.aiCards.map((item,ind) => {
         return (
@@ -62,9 +74,7 @@ const Game = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-    //   login: (email, password) => {
-    //     dispatch(loginThunkCreator(email, password));
-    //   },
+        
     }
   }
   

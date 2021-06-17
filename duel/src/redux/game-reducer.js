@@ -6,19 +6,32 @@ const REMOVE_AI_CARD = 'REMOVE_AI_CARD';
 const REMOVE_PLAYER_CARD = 'REMOVE_PLAYER_CARD';
 const SET_ROUND = 'SET_ROUND';
 const RESET_GAME = 'RESET_GAME';
+const START_GAME = 'START_GAME';
 
 let initialState = {
     aiCards: [0,1,2,3,4,5,6,7,8,9,10,11],
     playerCards: [0,1,2,3,4,5,6,7,8,9,10,11],
     currentRound: 0,
     playerPoints: 0,
-    aiPoints: 0
+    aiPoints: 0,
+    firstPlayer: null
 }
 
 export const setRound = (round) => {
     return {
         type: SET_ROUND,
         round,
+    }
+}
+
+export const startGame = () => {
+
+    let fp = Math.round(Math.random()) === 1 ? 'player' : 'ai'; 
+
+    return {
+        type: START_GAME,
+        round: 1,
+        firstPlayer: fp
     }
 }
 
@@ -99,7 +112,15 @@ export const gameReducer = (state = initialState, action) => {
         case RESET_GAME:
 
             return {
-                state: initialState
+                ...initialState
+            }
+
+        case START_GAME:
+
+            return {
+                ...state,
+                currentRound: action.round,
+                firstPlayer: action.firstPlayer
             }
 
         default:
