@@ -72,6 +72,7 @@ const InfoPanel = (props) => {
                     size="large" 
                     className={classes.button}
                     onClick={handleConcide}
+                    disabled={props.round > 0 ? false : true}
                 >
                     Concide
                 </Button>

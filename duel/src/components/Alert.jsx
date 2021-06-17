@@ -34,7 +34,6 @@ const Alert = (props) => {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    debugger;
     switch (props.round) {
       case 1:
         if (props.firstPlayer === 'player') setText('Your turn is first!');
