@@ -1,12 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Card from './Card';
 import { useState } from 'react';
-import { removeAICard, removePlayerCard, resetRound, setAiPoints, setPlayerPoints, setRound } from '../redux/game-reducer';
+import { removeAICard, removePlayerCard, setAiPoints, setPlayerPoints, setRound } from '../redux/game-reducer';
 import { useEffect } from 'react';
 import AI from './AI';
 
@@ -34,8 +32,9 @@ const Game = (props) => {
     const [plChoosenCard, setPlCard] = useState(null);
     const [aiChoosenCard, setAiCard] = useState(null);
     const [show, setShow] = useState(false);
+    const [allowClick, setAllow] = useState(false);
 
-    //first player in round:
+    //first player in round selection:
     useEffect(() => {
 
         if (props.round === 0) {
@@ -43,6 +42,7 @@ const Game = (props) => {
             setFLP(null);
             setPlCard(null);
             setAiCard(null);
+            setAllow(false);
         }
 
         if (props.round > 0 && props.round < 13) {
@@ -57,36 +57,45 @@ const Game = (props) => {
 
             setFLP(roundStarter);
         }
+
         
     }, [props.round])
 
-    //if ai first call choose of ai card
+    //first move after round starting
     useEffect(() => {
         
-        if (firstRoundPl==='ai')
-        setTimeout(() => setAiCard(AI(props.playerCards, props.aiCards, 'attack')), 300);
+        if (firstRoundPl==='ai') 
+            setTimeout(() => {
+                setAiCard(AI(props.playerCards, props.aiCards, 'attack'));
+                setAllow(true);
+            } , 300);
+        if (firstRoundPl==='pl')
+            setAllow(true);
 
     }, [firstRoundPl])
     
     //if ai card has been choosen
     useEffect(() => {
         
-        setTimeout(() => removeAICard(aiChoosenCard), 300);
+        if(aiChoosenCard !== null)
+            props.removeAiCard(aiChoosenCard);
        
     }, [aiChoosenCard])
 
     //if pl card has been choosen
     useEffect(() => {
-        debugger;
+        
         if (firstRoundPl==='pl')
-        setTimeout(() => setAiCard(AI(props.playerCards, props.aiCards, 'defense')), 300);
+        
+            setTimeout(() => {
+                setAiCard(AI(props.playerCards, props.aiCards, 'defense'))
+            } , 300);
        
     }, [plChoosenCard])
 
     //if both of cards have been choosen
     useEffect(() => {
-        
-        if (plChoosenCard && aiChoosenCard) {
+        if (plChoosenCard !== null && aiChoosenCard !== null) {
             setShow(true);
             setTimeout(() => {
                 if (firstRoundPl==='pl') {
@@ -95,13 +104,14 @@ const Game = (props) => {
                 } 
                 if (firstRoundPl==='ai') {
                     let add = aiChoosenCard - plChoosenCard <= 0 ? 0 : aiChoosenCard - plChoosenCard;
-                    props.setPlPoints(props.aiPoints + add);
+                    props.setPlPoints(props.plPoints + add);
                 } 
                 setShow(false);
                 setFLP(null);
                 setPlCard(null);
                 setAiCard(null);
-            }, 500)
+                props.setRound(props.round+1);
+            }, 1500)
         }
        
     }, [plChoosenCard, aiChoosenCard])
@@ -109,27 +119,33 @@ const Game = (props) => {
     const handlePlChoose = (num) => {
         props.removePlCard(num);
         setPlCard(num);
+        setAllow(false);
     }
 
     ///////Mount of cards array
     
     const aiC = props.aiCards.map((item,ind) => {
         return (
-            <Card
-            key={ind}
-            show={false}
-            style={{gridArea: `1/${ind+1}/2/${ind+2}`}}
-        />
+            <div style={{gridArea: `1/${ind+1}/2/${ind+2}`}} key={ind}>
+                <Card
+                    
+                    show={false}
+                />
+            </div>
+            
         )   
     })
 
     const plC = props.playerCards.map((item,ind) => {
         return (
-            <div onDoubleClick={() => handlePlChoose(item)} key={ind}>
+            <div 
+                onDoubleClick={allowClick ? () => handlePlChoose(item) : ()=>{}} 
+                key={ind}  
+                style={{gridArea: `4/${ind+1}/5/${ind+2}`}}
+            >
                 <Card
                     show={true}
                     number={item}
-                    style={{gridArea: `4/${ind+1}/5/${ind+2}`}}
                 />
             </div>
         )   

@@ -40,9 +40,10 @@ const Alert = (props) => {
         if (props.firstPlayer === 'ai') setText('AI is making his first turn...');
         break;
       case 13:
-        if (props.plPoints - props.aiPoints > 0) setText('Lose!'); 
-        if (props.plPoints - props.aiPoints < 0) setText('Win!'); 
-        if (props.plPoints - props.aiPoints == 0) setText('Draw!'); 
+        if (props.plPoints - props.aiPoints > 0) setText(`Lose! Player:${props.plPoints} AI:${props.aiPoints}`); 
+        if (props.plPoints - props.aiPoints < 0) setText(`Win! Player:${props.plPoints} AI:${props.aiPoints}`); 
+        if (props.plPoints - props.aiPoints == 0) setText(`Drow! Player:${props.plPoints} AI:${props.aiPoints}`); 
+        props.resetGame();
         break;
       default:
         break;

@@ -84,6 +84,7 @@ const InfoPanel = (props) => {
             firstPlayer={props.firstPlayer} 
             aiPoints={props.aiPoints}
             plPoints={props.plPoints}
+            resetGame={props.resetGame}
         />
     </div>
     );
