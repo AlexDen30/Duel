@@ -45,6 +45,10 @@ const Alert = (props) => {
         if (props.plPoints - props.aiPoints == 0) setText(`Drow! Player:${props.plPoints} AI:${props.aiPoints}`); 
         props.resetGame();
         break;
+      case -1:
+        setText(`Lose! You have been concide.`); 
+        props.resetGame();
+        break;
       default:
         break;
     }

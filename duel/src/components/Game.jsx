@@ -33,6 +33,7 @@ const Game = (props) => {
     const [aiChoosenCard, setAiCard] = useState(null);
     const [show, setShow] = useState(false);
     const [allowClick, setAllow] = useState(false);
+    const [PlKnownCards, setPlKnownCards] = useState([]);
 
     //first player in round selection:
     useEffect(() => {
@@ -43,6 +44,7 @@ const Game = (props) => {
             setPlCard(null);
             setAiCard(null);
             setAllow(false);
+            setPlKnownCards([...props.playerCards]);
         }
 
         if (props.round > 0 && props.round < 13) {
@@ -66,7 +68,7 @@ const Game = (props) => {
         
         if (firstRoundPl==='ai') 
             setTimeout(() => {
-                setAiCard(AI(props.playerCards, props.aiCards, 'attack'));
+                setAiCard(AI(PlKnownCards, props.aiCards, 'attack', props.round));
                 setAllow(true);
             } , 300);
         if (firstRoundPl==='pl')
@@ -88,7 +90,7 @@ const Game = (props) => {
         if (firstRoundPl==='pl')
         
             setTimeout(() => {
-                setAiCard(AI(props.playerCards, props.aiCards, 'defense'))
+                setAiCard(AI(PlKnownCards, props.aiCards, 'defense', props.round))
             } , 300);
        
     }, [plChoosenCard])
@@ -106,6 +108,8 @@ const Game = (props) => {
                     let add = aiChoosenCard - plChoosenCard <= 0 ? 0 : aiChoosenCard - plChoosenCard;
                     props.setPlPoints(props.plPoints + add);
                 } 
+                const ind = PlKnownCards.findIndex((i) => i === plChoosenCard)
+                setPlKnownCards([...PlKnownCards.slice(0,ind), ...PlKnownCards.slice(ind+1)]);
                 setShow(false);
                 setFLP(null);
                 setPlCard(null);

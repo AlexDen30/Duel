@@ -106,8 +106,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(startGame());
         },
         alertConcide: () => {
-            dispatch(setRound(13));
-            dispatch(setPlayerPoints(999));
+            dispatch(setRound(-1));
+            //dispatch(setPlayerPoints(999));
         },
         resetGame: () => {
             dispatch(resetGame())
