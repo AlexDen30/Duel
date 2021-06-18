@@ -10,8 +10,8 @@ let reducers = combineReducers({
     game: gameReducer,
 });
 
-export let store = createStore(reducers, 
-    compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() ));
+export let store = createStore(reducers)//, for extension in chrome (throw an error if it is not installed)
+    //compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() ));
 
 
 

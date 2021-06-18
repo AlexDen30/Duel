@@ -60,7 +60,6 @@ const Game = (props) => {
             setFLP(roundStarter);
         }
 
-        
     }, [props.round])
 
     //first move after round starting
@@ -68,7 +67,7 @@ const Game = (props) => {
         
         if (firstRoundPl==='ai') 
             setTimeout(() => {
-                setAiCard(AI(PlKnownCards, props.aiCards, 'attack', props.round));
+                setAiCard(AI(PlKnownCards, props.aiCards, 'attack'));
                 setAllow(true);
             } , 300);
         if (firstRoundPl==='pl')
@@ -78,7 +77,7 @@ const Game = (props) => {
     
     //if ai card has been choosen
     useEffect(() => {
-        
+        console.log(aiChoosenCard);
         if(aiChoosenCard !== null)
             props.removeAiCard(aiChoosenCard);
        
@@ -90,7 +89,7 @@ const Game = (props) => {
         if (firstRoundPl==='pl')
         
             setTimeout(() => {
-                setAiCard(AI(PlKnownCards, props.aiCards, 'defense', props.round))
+                setAiCard(AI(PlKnownCards, props.aiCards, 'defense'))
             } , 300);
        
     }, [plChoosenCard])
@@ -111,7 +110,7 @@ const Game = (props) => {
                 const ind = PlKnownCards.findIndex((i) => i === plChoosenCard)
                 setPlKnownCards([...PlKnownCards.slice(0,ind), ...PlKnownCards.slice(ind+1)]);
                 setShow(false);
-                setFLP(null);
+                setFLP(null);   
                 setPlCard(null);
                 setAiCard(null);
                 props.setRound(props.round+1);
