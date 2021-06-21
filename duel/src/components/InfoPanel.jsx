@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { resetGame, setPlayerPoints, setRound, startGame } from '../redux/game-reducer';
+import { resetGame, setRound, startGame } from '../redux/game-reducer';
 import Alert from './Alert';
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +74,7 @@ const InfoPanel = (props) => {
                     onClick={handleConcide}
                     disabled={props.round > 0 ? false : true}
                 >
-                    Concide
+                    Concede
                 </Button>
             </Grid>
             

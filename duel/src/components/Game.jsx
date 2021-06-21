@@ -77,7 +77,6 @@ const Game = (props) => {
     
     //if ai card has been choosen
     useEffect(() => {
-        console.log(aiChoosenCard);
         if(aiChoosenCard !== null)
             props.removeAiCard(aiChoosenCard);
        

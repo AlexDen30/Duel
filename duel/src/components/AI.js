@@ -15,7 +15,7 @@ const AI = (plCards, aiCards, type) => {
         if (aiCards.length <= 2) 
             return sortedAi[0];
 
-        if (aiCards.length == 12) {
+        if (aiCards.length === 12) {
             for (let i of sortedAi) {
                 if (i===0) cards.push(new InitCard(i,4))
                 if (i>=1 && i <= 5) cards.push(new InitCard(i,3))
@@ -42,7 +42,6 @@ const AI = (plCards, aiCards, type) => {
     }
 
     if (type === 'defense') {
-        debugger;
         if (aiCards.length === 1)
             return aiCards[0];
 
