@@ -60,7 +60,7 @@ const AI = (plCards, aiCards, type) => {
 
         if (plCards.length >=10 && plCards.length <=12) {
             for (let i of sortedAi) {
-                if (i>=1 && i <= 3) cards.push(new InitCard(i,2));
+                if (i>=2 && i <= 3) cards.push(new InitCard(i,2));
                 if (i>=4 && i <= 7) cards.push(new InitCard(i,3));
                 if (i>=8 && i <= 9) cards.push(new InitCard(i,1));
             }
